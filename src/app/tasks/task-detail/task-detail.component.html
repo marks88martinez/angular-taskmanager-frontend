@@ -1,0 +1,59 @@
+<h1 class="page-header">Detalhe da tarefa: {{ task?.title }}</h1>
+<form #taskForm="ngForm"  *ngIf='task'>
+  <div class="row">
+    <div class="form-group col-md-6 " has-feedback [class.has-error]="showFieldError(title)" [class.has-success]="title.valid" >
+      <label for="titulo" class=" control-label">Titulo</label>
+        <input  #title="ngModel" [(ngModel)]="task.title" type="text" class="form-control" name="title" id="titulo" required minlength="3" maxlength="255">
+        <span class="glyphicon form-control-feedback" [class.glyphicon-ok]="title.valid" [class.glyphicon-remove]="showFieldError(title)" style="margin-top:24px; margin-right:20px"></span>
+        <div *ngIf="showFieldError(title)" class="text-danger">
+          <div *ngIf="title.errors.required">El Titulo es obligatorio</div>
+          <div *ngIf="title.errors.minlength">El Titulo debe tener como minimo 3 caracteres</div>
+          <div *ngIf="title.errors.maxlength">El Titulo debe tener como maximo 255 caracteres</div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-3" has-feedback [class.has-error]="showFieldError(deadline)" [class.has-success]="deadline.valid" >
+        <label for="deadline" class=" control-label">Prazo de Entrega</label>
+        <input  #deadline="ngModel" [(ngModel)]="task.deadline" type="text" class="form-control" name="deadline" id="deadline" required>
+        <span class="glyphicon form-control-feedback" [class.glyphicon-ok]="deadline.valid" [class.glyphicon-remove]="showFieldError(deadline)" style="margin-top:24px; margin-right:20px"></span>
+        <div *ngIf="showFieldError(deadline)" class="text-danger">El Prazo es obligatorio</div>
+    </div>
+
+    <div class="form-group col-md-3" has-feedback [class.has-error]="showFieldError(done)" [class.has-success]="done.valid" >
+        <label for="done" class=" control-label">Situacao</label>
+        <select  #done="ngModel" [(ngModel)]="task.done" type="text" class="form-control" name="done" id="done" required>
+          <option *ngFor="let option of taskDoneOptions" [value]="option.value">{{option.text}}</option>
+        </select>
+
+        <span class="glyphicon form-control-feedback" [class.glyphicon-ok]="done.valid" [class.glyphicon-remove]="showFieldError(done)" style="margin-top:24px; margin-right:20px"></span>
+        <div *ngIf="showFieldError(done)" class="text-danger">El Situacion es obligatorio</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-md-12">
+        <label for="description" class=" control-label">Descripcion</label>
+        <textarea  [(ngModel)]="task.description"  class="form-control" name="description" id="description" rows="4">
+        </textarea>
+    </div>
+
+  </div>
+  <button class="btn btn-defoult" (click)="goBack()">Voltar</button>
+  <button [disabled]="taskForm.invalid" type="submit" class="btn btn-success" (click)="updateTask()">Salvar</button>
+
+  <hr>
+ 
+  <pre >
+    {{ title.errors | json}}
+  </pre>
+  <pre id="exemplo"> 
+    test testtesttesttesttesttesttest
+    testtesttesttesttesttesttest
+  </pre>
+
+
+
+
+</form>
+
+
