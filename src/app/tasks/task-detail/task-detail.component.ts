@@ -40,7 +40,7 @@ export class TaskDetailComponent implements OnInit, AfterViewInit {
     }
 
     public ngAfterViewInit(){
-       
+       $("#exemplo").fadeOut(999);
     }
 
     public goBack(){
